@@ -2,6 +2,7 @@ package com.med.personal.service;
 
 import com.med.personal.dto.MedPersonalRequest;
 import com.med.personal.dto.MedPersonalResponse;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,4 +16,6 @@ public interface MedPersonalService {
 
     void deleteProfile(String username, Long version);
 
+    @Scheduled(fixedRate = 60000)
+    void cacheEvictUtil();
 }

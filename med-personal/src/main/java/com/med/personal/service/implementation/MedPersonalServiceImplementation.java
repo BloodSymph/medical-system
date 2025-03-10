@@ -7,12 +7,15 @@ import com.med.personal.excepton.errors.MedPersonalProfileNotFoundException;
 import com.med.personal.repository.MedPersonalRepository;
 import com.med.personal.service.MedPersonalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalRequestToEntity;
 import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalResponse;
+import static com.med.personal.util.CacheEvictUtil.evictAllCaches;
 import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser;
 
 @Service
@@ -57,14 +60,39 @@ public class MedPersonalServiceImplementation implements MedPersonalService {
                     "Med personal profile entity version not valid!"
             );
         }
+        medPersonalEntity.setUsername(getSessionUser());
+        medPersonalEntity.setFirstName(medPersonalRequest.getFirstName());
+        medPersonalEntity.setLastName(medPersonalRequest.getLastName());
+        medPersonalEntity.setPhoneNumber(medPersonalRequest.getPhoneNumber());
+        medPersonalEntity.setAddress(medPersonalRequest.getAddress());
+        medPersonalEntity.setSpecialty(medPersonalRequest.getSpecialty());
+        medPersonalEntity.setSpecialtyCode(medPersonalRequest.getSpecialtyCode());
+        medPersonalEntity.setVersion((medPersonalRequest.getVersion()));
 
-        return null;
+        medPersonalRepository.save(medPersonalEntity);
+
+        return mapMedPersonalResponse(medPersonalEntity);
     }
 
     @Override
     @Transactional
     public void deleteProfile(String username, Long version) {
+        if (!medPersonalRepository.existsByUsernameIgnoreCase(username)) {
+            throw new MedPersonalProfileNotFoundException(
+                    "Cannot find profile for username: " + username + "!"
+            );
+        }
+        if(!medPersonalRepository.existsByVersion(version)) {
+            throw new MedPersonalProfileNotFoundException(
+                    "Med personal profile entity version not valid!"
+            );
+        }
+        medPersonalRepository.deleteByUsernameIgnoreCase(username);
+    }
 
+    @Override
+    public void cacheEvictUtil() {
+        evictAllCaches();
     }
 
 }

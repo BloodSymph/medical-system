@@ -11,4 +11,10 @@ public interface MedPersonalRepository extends JpaRepository<MedPersonalEntity, 
 
     Optional<MedPersonalEntity> findByUsernameIgnoreCase(String username);
 
+    void deleteByUsernameIgnoreCase(String username);
+    
+    Boolean existsByUsernameIgnoreCase(String username);
+
+    Boolean existsByVersion(Long version);
+
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: auth-service
+    name: profile-service
   datasource:
     url: jdbc:postgresql://localhost:5432/med-personal
     username: postgres

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-243.24978.46">
-    <data-source name="postgres@localhost" uuid="5f6ef8b4-9ee3-453b-8d26-12e669c22611">
+    <data-source name="auth@localhost" uuid="e34df939-49e0-427c-9ccb-3d5908d16d62">
       <database-info product="PostgreSQL" version="16.1" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.1" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -10,13 +10,11 @@
       <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node negative="1">
-            <node kind="database" qname="@">
-              <node kind="schema" qname="@" />
-            </node>
-            <node kind="database" qname="auth">
-              <node kind="schema" negative="1" />
-            </node>
+          <node kind="database">
+            <name qname="@" />
+            <name qname="auth" />
+            <name qname="med-personal" />
+            <node kind="schema" negative="1" />
           </node>
         </introspection-scope>
       </schema-mapping>
