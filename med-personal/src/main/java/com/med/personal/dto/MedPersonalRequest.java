@@ -28,11 +28,6 @@ public class MedPersonalRequest {
     private String lastName;
 
     @NotEmpty
-    @NotBlank(message = "Username field shod not be empty!")
-    @Length(max = 120, message = "Username field shod have maximum of {max} characters!")
-    private String username;
-
-    @NotEmpty
     @NotBlank(message = "Phone number field shod not be empty!")
     @Length(max = 120, message = "Phone number field shod have maximum of {max} characters!")
     private String phoneNumber;

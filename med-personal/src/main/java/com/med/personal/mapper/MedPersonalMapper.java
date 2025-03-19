@@ -27,7 +27,6 @@ public class MedPersonalMapper {
         return MedPersonalEntity.builder()
                 .firstName(medPersonalRequest.getFirstName())
                 .lastName(medPersonalRequest.getLastName())
-                .username(medPersonalRequest.getUsername())
                 .phoneNumber(medPersonalRequest.getPhoneNumber())
                 .address(medPersonalRequest.getAddress())
                 .specialty(medPersonalRequest.getSpecialty())

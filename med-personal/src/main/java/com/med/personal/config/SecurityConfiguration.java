@@ -82,7 +82,7 @@ public class SecurityConfiguration {
                 .cors(httpSecurityCorsConfigurer -> corsConfigurationSource())
                 .authorizeHttpRequests(
                         requestMatcherRegistry -> requestMatcherRegistry
-                                .requestMatchers("/api/vi/med-personal/**")
+                                .requestMatchers("/api/v1/profile-service/**")
                                 .hasAnyAuthority("DOCTOR", "NURSE")).sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
