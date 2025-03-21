@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@EnableScheduling
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Bean

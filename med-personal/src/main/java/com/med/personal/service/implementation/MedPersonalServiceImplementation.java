@@ -90,9 +90,4 @@ public class MedPersonalServiceImplementation implements MedPersonalService {
         medPersonalRepository.deleteByUsernameIgnoreCase(username);
     }
 
-    @Override
-    public void cacheEvictUtil() {
-        evictAllCaches();
-    }
-
 }

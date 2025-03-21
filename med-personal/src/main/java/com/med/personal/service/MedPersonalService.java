@@ -16,6 +16,4 @@ public interface MedPersonalService {
 
     void deleteProfile(String username, Long version);
 
-    @Scheduled(fixedRate = 60000)
-    void cacheEvictUtil();
 }
