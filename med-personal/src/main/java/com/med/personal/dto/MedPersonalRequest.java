@@ -42,7 +42,6 @@ public class MedPersonalRequest {
     @Length(max = 120, message = "Specialty field shod have maximum of {max} characters!")
     private String specialty;
 
-    @NotEmpty
     @NotNull(message = "Specialty code field shod not contains null value!")
     private Long specialtyCode;
 
