@@ -47,6 +47,10 @@ public class SecurityConfiguration {
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configure(
+                                httpSecurityCorsConfigurer.disable()
+                        )
+                )
                 .authorizeHttpRequests(
                         requestMatcherRegistry -> requestMatcherRegistry
                                 .requestMatchers("/api/vi/auth-service/auth/**")

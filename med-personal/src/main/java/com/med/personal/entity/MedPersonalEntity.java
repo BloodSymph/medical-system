@@ -31,6 +31,9 @@ public class MedPersonalEntity {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Column(name = "user_email", unique = true, nullable = false, length = 120)
+    private String email;
+
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 

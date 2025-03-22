@@ -61,6 +61,7 @@ public class MedPersonalServiceImplementation implements MedPersonalService {
         medPersonalEntity.setLastName(medPersonalRequest.getLastName());
         medPersonalEntity.setPhoneNumber(medPersonalRequest.getPhoneNumber());
         medPersonalEntity.setAddress(medPersonalRequest.getAddress());
+        medPersonalEntity.setEmail(medPersonalEntity.getEmail());
         medPersonalEntity.setSpecialty(medPersonalRequest.getSpecialty());
         medPersonalEntity.setSpecialtyCode(medPersonalRequest.getSpecialtyCode());
         medPersonalEntity.setVersion((medPersonalRequest.getVersion()));

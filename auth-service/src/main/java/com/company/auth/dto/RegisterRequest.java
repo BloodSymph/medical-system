@@ -21,11 +21,6 @@ public class RegisterRequest {
     private String username;
 
     @NotEmpty
-    @NotBlank(message = "Email field shod not be empty!")
-    @Length(max = 120, message = "Email field shod have maximum of {max} characters!")
-    private String email;
-
-    @NotEmpty
     @NotBlank(message = "Password field shod not be empty!")
     @Length(max = 120, message = "Password field shod have maximum of {max} characters!")
     private String password;

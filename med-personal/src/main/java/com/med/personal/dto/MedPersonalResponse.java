@@ -23,6 +23,8 @@ public class MedPersonalResponse {
     @JsonProperty(value = "phone_number")
     private String phoneNumber;
 
+    private String email;
+
     private String address;
 
     private String specialty;

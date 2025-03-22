@@ -33,6 +33,11 @@ public class MedPersonalRequest {
     private String phoneNumber;
 
     @NotEmpty
+    @NotBlank(message = "Email field shod not be empty!")
+    @Length(max = 120, message = "Email field shod have maximum of {max} characters!")
+    private String email;
+
+    @NotEmpty
     @NotBlank(message = "Address field shod not be empty!")
     @Length(max = 120, message = "Address field shod have maximum of {max} characters!")
     private String address;
