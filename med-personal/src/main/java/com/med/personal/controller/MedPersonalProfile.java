@@ -36,10 +36,11 @@ public class MedPersonalProfile {
         return medPersonalService.updateProfile(medPersonalRequest);
     }
 
-    @DeleteMapping("/profile/delete")
+    @DeleteMapping("/profile/{username}/delete")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteProfile(
-            String username, @RequestParam(value = "version", required = true) Long version) {
+           @PathVariable(value = "username") String username,
+           @RequestParam(value = "version", required = true) Long version) {
         medPersonalService.deleteProfile(username, version);
         return new ResponseEntity<>("Profile successful deleted!!", HttpStatus.OK);
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-243.24978.46">
-    <data-source name="auth@localhost" uuid="e34df939-49e0-427c-9ccb-3d5908d16d62">
+  <component name="dataSourceStorageLocal" created-in="IU-243.26053.27">
+    <data-source name="postgres@localhost" uuid="7b690915-65b9-42d2-bb44-698a41e0aa30">
       <database-info product="PostgreSQL" version="16.1" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.1" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -11,24 +11,9 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="database">
-            <name qname="@" />
             <name qname="auth" />
             <name qname="med-personal" />
             <node kind="schema" negative="1" />
-          </node>
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="med-personal@localhost" uuid="dd5a5ce6-51fb-4f04-be22-57e239ed48f3">
-      <database-info product="PostgreSQL" version="16.1" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.1" exact-driver-version="42.7">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
-      <user-name>postgres</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="database" qname="@">
-            <node kind="schema" qname="@" />
           </node>
         </introspection-scope>
       </schema-mapping>
