@@ -1,8 +1,8 @@
 package com.company.auth.service.authorization.implementation;
 
-import com.company.auth.dto.AuthenticationResponse;
-import com.company.auth.dto.LoginRequest;
-import com.company.auth.dto.RegisterRequest;
+import com.company.auth.dto.authentication.AuthenticationResponse;
+import com.company.auth.dto.authentication.LoginRequest;
+import com.company.auth.dto.authentication.RegisterRequest;
 import com.company.auth.entity.RoleEntity;
 import com.company.auth.entity.TokenEntity;
 import com.company.auth.entity.UserEntity;

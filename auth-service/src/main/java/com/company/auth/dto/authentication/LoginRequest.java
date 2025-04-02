@@ -1,10 +1,7 @@
-package com.company.auth.dto;
-
-
+package com.company.auth.dto.authentication;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -13,24 +10,18 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RegisterRequest {
+public class LoginRequest {
 
     @NotEmpty
     @NotBlank(message = "Username field shod not be empty!")
     @Length(max = 120, message = "Username field shod have maximum of {max} characters!")
     private String username;
 
+//
+
     @NotEmpty
     @NotBlank(message = "Password field shod not be empty!")
     @Length(max = 120, message = "Password field shod have maximum of {max} characters!")
     private String password;
-
-    @NotEmpty
-    @NotBlank(message = "Role name field shod not be empty!")
-    @Length(max = 120, message = "Role name field shod have maximum of {max} characters!")
-    private String roleName;
-
-    @NotNull(message = "Version field shod not contains null value!")
-    private Long version;
 
 }

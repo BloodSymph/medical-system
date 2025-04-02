@@ -23,6 +23,12 @@ import java.util.stream.Collectors;
 @ToString
 @Entity(name = "User")
 @Table(name = "users")
+@NamedEntityGraph(
+        name = "user-roles-named-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("roles")
+        }
+)
 public class UserEntity implements UserDetails{
 
     @Id
