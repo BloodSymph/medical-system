@@ -18,6 +18,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Boolean existsByUsernameIgnoreCase(String username);
 
+    @EntityGraph(value = "user-roles-named-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
+    @Query("SELECT user FROM User user WHERE user.username LIKE LOWER(:username) ")
+    Optional<UserEntity> getUserEntitiesByUsername(@Param(value = "username") String username);
+
     Boolean existsByVersion(Long userVersion);
 
     void deleteByUsername(String username);

@@ -1,5 +1,6 @@
 package com.company.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -70,6 +71,7 @@ public class UserEntity implements UserDetails{
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
+    @JsonIgnore
     private List<TokenEntity> tokens;
 
     @Version
