@@ -1,5 +1,6 @@
 package com.company.auth.mapper;
 
+import com.company.auth.dto.admin.role.RoleAdminRequest;
 import com.company.auth.dto.admin.role.RoleAdminResponse;
 import com.company.auth.entity.RoleEntity;
 import org.springframework.stereotype.Component;
@@ -13,14 +14,13 @@ public class RoleAdminMapper {
                 .name(roleEntity.getName())
                 .created(roleEntity.getCreated())
                 .updated(roleEntity.getUpdated())
-                .version(roleEntity.getVersion())
                 .build();
     }
 
-    public static RoleEntity mapToRoleEntity(RoleAdminResponse roleAdminResponse) {
+    public static RoleEntity mapToRoleEntity(RoleAdminRequest roleAdminRequest) {
         return RoleEntity.builder()
-                .name(roleAdminResponse.getName())
-                .version(roleAdminResponse.getVersion())
+                .name(roleAdminRequest.getName())
+                .version(roleAdminRequest.getVersion())
                 .build();
     }
 

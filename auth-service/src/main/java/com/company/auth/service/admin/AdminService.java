@@ -1,6 +1,7 @@
 package com.company.auth.service.admin;
 
 import com.company.auth.dto.admin.role.PermissionRequest;
+import com.company.auth.dto.admin.role.RoleAdminRequest;
 import com.company.auth.dto.admin.role.RoleAdminResponse;
 import com.company.auth.dto.admin.user.UserAdminResponse;
 import com.company.auth.dto.admin.user.UserDetailsAdminResponse;
@@ -17,7 +18,7 @@ public interface AdminService {
 
     UserAdminResponse getUser(String username);
 
-    UserDetailsAdminResponse giveUserPermission(PermissionRequest permissionRequest);
+    void giveUserPermission(PermissionRequest permissionRequest);
 
     void removeUserPermission(PermissionRequest permissionRequest);
 
@@ -27,13 +28,11 @@ public interface AdminService {
 
     Page<RoleAdminResponse> findAllRoles(Pageable pageable);
 
-    Page<RoleAdminResponse> searchRoles(String search, Pageable pageable);
+    Page<RoleAdminResponse> searchRoles(String searchText, Pageable pageable);
 
-    RoleAdminResponse getRole(Long roleId);
+    RoleAdminResponse createRole(RoleAdminRequest roleAdminRequest);
 
-    RoleAdminResponse createRole(RoleAdminResponse roleAdminResponse);
-
-    RoleAdminResponse updateRole(RoleAdminResponse roleAdminResponse);
+    RoleAdminResponse updateRole(RoleAdminRequest roleAdminRequest);
 
     void deleteRoleByName(String name, Long version);
 

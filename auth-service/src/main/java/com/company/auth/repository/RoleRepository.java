@@ -15,6 +15,11 @@ public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
 
     Optional<RoleEntity> findByNameIgnoreCase(String roleName);
 
+    @Query("SELECT role FROM Role role WHERE LOWER(role.name) LIKE CONCAT('%', :searchText, '%') ")
+    Page<RoleEntity> searchByText(
+            @Param(value = "searchText") String searchText, Pageable pageable
+    );
+
     Boolean existsByVersion(Long roleVersion);
 
     Boolean existsByNameIgnoreCase(String roleName);

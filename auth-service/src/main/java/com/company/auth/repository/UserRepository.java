@@ -18,9 +18,16 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Boolean existsByUsernameIgnoreCase(String username);
 
+    @Query("SELECT user FROM User user WHERE LOWER(user.username) LIKE CONCAT('%', :searchText, '%') ")
+    Page<UserEntity> searchByText(
+            @Param(value = "searchText") String searchText, Pageable pageable
+    );
+
     @EntityGraph(value = "user-roles-named-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
     @Query("SELECT user FROM User user WHERE user.username LIKE LOWER(:username) ")
-    Optional<UserEntity> getUserEntitiesByUsername(@Param(value = "username") String username);
+    Optional<UserEntity> getUserEntitiesByUsername(
+            @Param(value = "username") String username
+    );
 
     Boolean existsByVersion(Long userVersion);
 
