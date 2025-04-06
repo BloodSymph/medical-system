@@ -155,7 +155,22 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public RoleAdminResponse updateRole(RoleAdminRequest roleAdminRequest) {
-        return null;
+        RoleEntity role = roleRepository
+                .findByNameIgnoreCase(roleAdminRequest.getName())
+                .orElseThrow(
+                        () -> new RoleNotFoundException(
+                                "Can not find role by name: " + roleAdminRequest.getName() + "!"
+                        )
+                );
+        if(!role.getVersion().equals(roleAdminRequest.getVersion())) {
+            throw new RoleVersionNotValidException(
+                    "Role version is not valid!"
+            );
+        }
+        role.setName(roleAdminRequest.getName());
+        role.setVersion(roleAdminRequest.getVersion());
+        roleRepository.save(role);
+        return mapToRoleAdminResponse(role);
     }
 
     @Override
