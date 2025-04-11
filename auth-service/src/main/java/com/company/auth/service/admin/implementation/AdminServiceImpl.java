@@ -17,6 +17,7 @@ import com.company.auth.repository.RoleRepository;
 import com.company.auth.repository.UserRepository;
 import com.company.auth.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public UserAdminResponse getUser(String username) {
+    public UserDetailsAdminResponse getUser(String username) {
         UserEntity user = userRepository.getUserEntitiesByUsername(username)
                 .orElseThrow(
                         () -> new UserNotFoundException(

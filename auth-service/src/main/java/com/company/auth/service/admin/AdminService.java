@@ -16,7 +16,7 @@ public interface AdminService {
 
     Page<UserAdminResponse> searchUsers(String search, Pageable pageable);
 
-    UserAdminResponse getUser(String username);
+    UserDetailsAdminResponse getUser(String username);
 
     void giveUserPermission(PermissionRequest permissionRequest);
 

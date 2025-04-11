@@ -19,7 +19,6 @@ public class LoginRequest {
     private String username;
 
 
-
     @NotEmpty
     @NotBlank(message = "Password field shod not be empty!")
     @Length(max = 120, message = "Password field shod have maximum of {max} characters!")
