@@ -1,11 +1,13 @@
 package com.company.auth.service.authorization.implementation;
 
 import com.company.auth.dto.authentication.AuthenticationResponse;
+import com.company.auth.dto.authentication.ChangePasswordRequest;
 import com.company.auth.dto.authentication.LoginRequest;
 import com.company.auth.dto.authentication.RegisterRequest;
 import com.company.auth.entity.RoleEntity;
 import com.company.auth.entity.TokenEntity;
 import com.company.auth.entity.UserEntity;
+import com.company.auth.exception.exceptions.password.WrongPasswordException;
 import com.company.auth.exception.exceptions.role.RoleNotFoundException;
 import com.company.auth.exception.exceptions.user.UsernameIsTakenException;
 import com.company.auth.repository.RoleRepository;
@@ -27,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -118,6 +121,26 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 refreshToken,
                 "User login was successful!"
         );
+
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal) {
+
+        UserEntity user = (UserEntity) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
+        if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+            throw new WrongPasswordException("Wrong password!");
+        }
+
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())) {
+            throw new WrongPasswordException("Password is not the same!");
+        }
+
+        user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+
+       userRepository.save(user);
 
     }
 

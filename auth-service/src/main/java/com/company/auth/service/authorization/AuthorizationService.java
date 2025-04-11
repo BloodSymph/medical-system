@@ -1,6 +1,7 @@
 package com.company.auth.service.authorization;
 
 import com.company.auth.dto.authentication.AuthenticationResponse;
+import com.company.auth.dto.authentication.ChangePasswordRequest;
 import com.company.auth.dto.authentication.LoginRequest;
 import com.company.auth.dto.authentication.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Service
 public interface AuthorizationService {
@@ -21,5 +23,7 @@ public interface AuthorizationService {
             HttpServletRequest httpServletRequest,
             HttpServletResponse response
     ) throws IOException;
+
+    void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal);
 
 }
