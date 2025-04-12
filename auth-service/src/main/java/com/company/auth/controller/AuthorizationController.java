@@ -1,6 +1,7 @@
 package com.company.auth.controller;
 
 import com.company.auth.dto.authentication.AuthenticationResponse;
+import com.company.auth.dto.authentication.ChangePasswordRequest;
 import com.company.auth.dto.authentication.LoginRequest;
 import com.company.auth.dto.authentication.RegisterRequest;
 import com.company.auth.service.authorization.AuthorizationService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +35,17 @@ public class AuthorizationController {
     public AuthenticationResponse login(
             @Valid @RequestBody LoginRequest loginRequest) {
         return authorizationService.login(loginRequest);
+    }
+
+    @PatchMapping("/change-password")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<String> changePassword(
+            @RequestBody ChangePasswordRequest changePasswordRequest, Principal principal) {
+        authorizationService.changePassword(changePasswordRequest, principal);
+        return new ResponseEntity<>(
+                "Password successful changed!",
+                HttpStatus.ACCEPTED
+        );
     }
 
     @PostMapping("/refresh")

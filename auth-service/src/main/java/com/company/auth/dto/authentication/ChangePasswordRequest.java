@@ -16,6 +16,11 @@ import org.hibernate.validator.constraints.Length;
 public class ChangePasswordRequest {
 
     @NotEmpty
+    @NotBlank(message = "Username field shod not be empty!")
+    @Length(max = 120, message = "Username field shod have maximum of {max} characters!")
+    private String username;
+
+    @NotEmpty
     @NotBlank(message = "Password field shod not be empty!")
     @Length(max = 120, message = "Password field shod have maximum of {max} characters!")
     @ValidPassword
