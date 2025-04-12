@@ -1,8 +1,7 @@
 package com.med.personal.mapper;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.med.personal.dto.MedPersonalRequest;
-import com.med.personal.dto.MedPersonalResponse;
+import com.med.personal.dto.user.MedPersonalRequest;
+import com.med.personal.dto.user.MedPersonalResponse;
 import com.med.personal.entity.MedPersonalEntity;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.med.personal.service.implementation;
 
-import com.med.personal.dto.MedPersonalRequest;
-import com.med.personal.dto.MedPersonalResponse;
+import com.med.personal.dto.user.MedPersonalRequest;
+import com.med.personal.dto.user.MedPersonalResponse;
 import com.med.personal.entity.MedPersonalEntity;
 import com.med.personal.excepton.errors.MedPersonalProfileNotFoundException;
 import com.med.personal.repository.MedPersonalRepository;
@@ -16,7 +16,7 @@ import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser
 
 @Service
 @RequiredArgsConstructor
-public class MedPersonalServiceImplementation implements MedPersonalService {
+public class MedPersonalServiceImpl implements MedPersonalService {
 
     private final MedPersonalRepository medPersonalRepository;
 

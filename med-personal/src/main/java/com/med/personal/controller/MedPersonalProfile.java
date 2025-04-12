@@ -1,7 +1,7 @@
 package com.med.personal.controller;
 
-import com.med.personal.dto.MedPersonalRequest;
-import com.med.personal.dto.MedPersonalResponse;
+import com.med.personal.dto.user.MedPersonalRequest;
+import com.med.personal.dto.user.MedPersonalResponse;
 import com.med.personal.service.MedPersonalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
