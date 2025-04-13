@@ -1,4 +1,4 @@
-package com.med.personal.service;
+package com.med.personal.service.admin;
 
 import com.med.personal.dto.admin.MedPersonalAdminResponse;
 import org.springframework.data.domain.Page;
@@ -12,8 +12,8 @@ public interface AdminService {
 
     Page<MedPersonalAdminResponse> searchMedPersonalProfiles(Pageable pageable, String searchText);
 
-    MedPersonalAdminResponse getMedPersonalProfile(String getBy);
+    MedPersonalAdminResponse getMedPersonalProfile(String username);
 
-    void deleteMedPersonalProfile(String deleteBy, Long version);
+    void deleteMedPersonalProfile(String username, Long version);
 
 }

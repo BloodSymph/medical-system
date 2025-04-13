@@ -2,7 +2,7 @@ package com.med.personal.controller;
 
 import com.med.personal.dto.user.MedPersonalRequest;
 import com.med.personal.dto.user.MedPersonalResponse;
-import com.med.personal.service.MedPersonalService;
+import com.med.personal.service.profile.MedPersonalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

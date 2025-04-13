@@ -46,7 +46,11 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         requestMatcherRegistry -> requestMatcherRegistry
                                 .requestMatchers("/api/v1/profile-service/**")
-                                .hasAnyAuthority("DOCTOR", "NURSE")).sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
+                                .hasAnyAuthority("DOCTOR", "NURSE")
+                                .requestMatchers("/api/v1/profile-service/admin/**")
+                                .hasAnyAuthority("ADMIN")
+                )
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(

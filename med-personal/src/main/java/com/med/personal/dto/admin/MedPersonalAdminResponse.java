@@ -16,8 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MedPersonalAdminResponse {
 
+    @JsonProperty(value = "first_name")
     private String firstName;
 
+    @JsonProperty(value = "last_name")
     private String lastName;
 
     private String username;
