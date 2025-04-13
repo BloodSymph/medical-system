@@ -53,15 +53,15 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(
                         requestMatcherRegistry -> requestMatcherRegistry
-                                .requestMatchers("/api/vi/auth-service/auth/register")
+                                .requestMatchers("/api/v1/auth-service/auth/register")
                                 .permitAll()
-                                .requestMatchers("/api/vi/auth-service/auth/login")
+                                .requestMatchers("/api/v1/auth-service/auth/login")
                                 .permitAll()
-                                .requestMatchers("/api/vi/auth-service/auth/refresh")
+                                .requestMatchers("/api/v1/auth-service/auth/refresh")
                                 .permitAll()
-                                .requestMatchers("/api/vi/auth-service/auth/change-password")
+                                .requestMatchers("/api/v1/auth-service/auth/change-password")
                                 .authenticated()
-                                .requestMatchers("/api/vi/auth-service/admin/**")
+                                .requestMatchers("/api/v1/auth-service/admin/**")
                                 .hasAuthority("ADMIN")
                 ).userDetailsService(customUserDetailsService)
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer

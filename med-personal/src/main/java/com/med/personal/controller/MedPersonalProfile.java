@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/profile-service")
+@RequestMapping("/api/v1/profile-service/client")
 public class MedPersonalProfile {
 
     private final MedPersonalService medPersonalService;

@@ -45,10 +45,10 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(
                         requestMatcherRegistry -> requestMatcherRegistry
-                                .requestMatchers("/api/v1/profile-service/**")
+                                .requestMatchers("/api/v1/profile-service/client/**")
                                 .hasAnyAuthority("DOCTOR", "NURSE")
                                 .requestMatchers("/api/v1/profile-service/admin/**")
-                                .hasAnyAuthority("ADMIN")
+                                .hasAuthority("ADMIN")
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

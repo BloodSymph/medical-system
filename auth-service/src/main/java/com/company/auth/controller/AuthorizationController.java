@@ -18,7 +18,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/vi/auth-service/auth")
+@RequestMapping("/api/v1/auth-service/auth")
 public class AuthorizationController {
 
     private final AuthorizationService authorizationService;
