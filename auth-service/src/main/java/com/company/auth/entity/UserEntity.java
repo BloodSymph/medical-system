@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.redis.core.RedisHash;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Collections;
+
 import java.util.List;
-import java.util.Set;
+
 import java.util.stream.Collectors;
 
 @Data
@@ -38,10 +37,10 @@ public class UserEntity implements UserDetails{
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "user_username", unique = true, nullable = false, length = 120)
+    @Column(name = "user_username", unique = true, nullable = false, length = 50)
     private String username;
 
-    @Column(name = "user_password", nullable = false, unique = true, length = 120)
+    @Column(name = "user_password", nullable = false, unique = true, length = 50)
     private String password;
 
     @CreationTimestamp

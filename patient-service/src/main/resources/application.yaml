@@ -1,11 +1,11 @@
 server:
-  port: 8082
+  port: 8083
 
 spring:
   application:
-    name: med-personal-service
+    name: patient-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/med-personal
+    url: jdbc:postgresql://localhost:5432/patient
     username: postgres
     password: KuzPsina
     driver-class-name: org.postgresql.Driver
@@ -26,12 +26,3 @@ logging:
     org:
       springframework:
         security: trace
-
-
-
-
-
-
-
-
-

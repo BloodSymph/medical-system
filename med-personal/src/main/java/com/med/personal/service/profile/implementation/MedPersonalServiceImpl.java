@@ -8,11 +8,13 @@ import com.med.personal.excepton.errors.MedPersonalVersionNotValidException;
 import com.med.personal.repository.MedPersonalRepository;
 import com.med.personal.service.profile.MedPersonalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalRequestToEntity;
 import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalResponse;
+import static com.med.personal.util.CacheEvictUtil.evictAllCaches;
 import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser;
 
 @Service
@@ -87,5 +89,7 @@ public class MedPersonalServiceImpl implements MedPersonalService {
         }
         medPersonalRepository.deleteByUsernameIgnoreCase(username);
     }
+
+
 
 }

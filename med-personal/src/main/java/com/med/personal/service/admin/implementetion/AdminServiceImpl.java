@@ -8,12 +8,15 @@ import com.med.personal.mapper.MedPersonalAdminMapper;
 import com.med.personal.repository.MedPersonalRepository;
 import com.med.personal.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.med.personal.mapper.MedPersonalAdminMapper.mapToAdminResponse;
+import static com.med.personal.util.CacheEvictUtil.evictAllCaches;
 import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser;
 
 @Service
@@ -38,6 +41,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Cacheable(value = "med_personal_profile", key = "#username", unless = "#result == null ")
     public MedPersonalAdminResponse getMedPersonalProfile(String username) {
         MedPersonalEntity medPersonalEntity = medPersonalRepository
                 .findByUsernameIgnoreCase(username)
@@ -64,4 +68,8 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
+    public void evictAllCache() {
+        evictAllCaches();
+    }
 }

@@ -17,6 +17,7 @@ import com.company.auth.repository.RoleRepository;
 import com.company.auth.repository.UserRepository;
 import com.company.auth.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.company.auth.mapper.RoleAdminMapper.mapToRoleAdminResponse;
 import static com.company.auth.mapper.RoleAdminMapper.mapToRoleEntity;
 import static com.company.auth.mapper.UserAdminMapper.mapToUserDetailsAdminResponse;
+import static com.company.auth.util.CacheEvictUtil.evictAllCaches;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +52,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Cacheable(value = "user_details", key = "#username", unless = "#result == null ")
     public UserDetailsAdminResponse getUser(String username) {
         UserEntity user = userRepository.getUserEntitiesByUsername(username)
                 .orElseThrow(
@@ -190,4 +193,8 @@ public class AdminServiceImpl implements AdminService {
         roleRepository.deleteByNameIgnoreCase(name);
     }
 
+    @Override
+    public void cacheEvict() {
+        evictAllCaches();
+    }
 }

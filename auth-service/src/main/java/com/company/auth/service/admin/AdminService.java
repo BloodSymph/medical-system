@@ -7,6 +7,7 @@ import com.company.auth.dto.admin.user.UserAdminResponse;
 import com.company.auth.dto.admin.user.UserDetailsAdminResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,5 +36,9 @@ public interface AdminService {
     RoleAdminResponse updateRole(RoleAdminRequest roleAdminRequest);
 
     void deleteRoleByName(String name, Long version);
+
+    @Scheduled(fixedDelay = 5000)
+    void  cacheEvict();
+
 
 }

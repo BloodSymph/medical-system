@@ -24,7 +24,7 @@ public class RoleEntity {
     @Column(name = "role_id")
     private Long id;
 
-    @Column(name = "role_name", nullable = false, length = 120)
+    @Column(name = "role_name", nullable = false, length = 50)
     private String name;
 
     @CreationTimestamp

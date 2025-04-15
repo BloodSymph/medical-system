@@ -1,25 +1,22 @@
-package com.med.personal.entity;
+package com.company.patien.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.time.LocalDateTime;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Med_Personal")
-@Table(name = "med_personal")
-public class MedPersonalEntity {
+@Entity(name = "Patient")
+@Table(name = "patient")
+public class PatientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "med_personal_id")
+    @Column(name = "patient_id")
     private Long id;
 
     @Column(name = "first_name", nullable = false, length = 50)
@@ -40,21 +37,8 @@ public class MedPersonalEntity {
     @Column(name = "address", nullable = false, length = 50)
     private String address;
 
-    @Column(name = "specialty", nullable = false, length = 50)
-    private String specialty;
-
-    @Column(name = "spercialt_code", nullable = false, length = 50)
-    private Long specialtyCode;
-
-    @CreationTimestamp
-    @Column(name = "created")
-    private LocalDateTime created;
-
-    @UpdateTimestamp
-    @Column(name = "updated")
-    private LocalDateTime updated;
-
-    @Column(name = "med_version", nullable = false, unique = true)
+    @Version
+    @Column(name = "patient_version", nullable = false, unique = true)
     private Long version;
 
 }
