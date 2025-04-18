@@ -1,20 +1,18 @@
 package com.med.personal.service.profile.implementation;
 
-import com.med.personal.dto.user.MedPersonalRequest;
-import com.med.personal.dto.user.MedPersonalResponse;
+import com.med.personal.dto.client.MedPersonalRequest;
+import com.med.personal.dto.client.MedPersonalResponse;
 import com.med.personal.entity.MedPersonalEntity;
 import com.med.personal.excepton.errors.MedPersonalProfileNotFoundException;
 import com.med.personal.excepton.errors.MedPersonalVersionNotValidException;
 import com.med.personal.repository.MedPersonalRepository;
 import com.med.personal.service.profile.MedPersonalService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalRequestToEntity;
 import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalResponse;
-import static com.med.personal.util.CacheEvictUtil.evictAllCaches;
 import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser;
 
 @Service

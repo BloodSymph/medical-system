@@ -1,5 +1,6 @@
 package com.company.patien.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +38,7 @@ public class AnalysisEntity {
     @Column(name = "updated")
     private LocalDateTime updated;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(name = "username", referencedColumnName = "username")
     private PatientEntity patient;

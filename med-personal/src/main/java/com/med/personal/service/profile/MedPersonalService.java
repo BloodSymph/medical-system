@@ -1,8 +1,7 @@
 package com.med.personal.service.profile;
 
-import com.med.personal.dto.user.MedPersonalRequest;
-import com.med.personal.dto.user.MedPersonalResponse;
-import org.springframework.scheduling.annotation.Scheduled;
+import com.med.personal.dto.client.MedPersonalRequest;
+import com.med.personal.dto.client.MedPersonalResponse;
 import org.springframework.stereotype.Service;
 
 @Service

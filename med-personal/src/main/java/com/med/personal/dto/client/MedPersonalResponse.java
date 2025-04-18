@@ -1,4 +1,4 @@
-package com.med.personal.dto.user;
+package com.med.personal.dto.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MedPersonalResponse {
+
+    private Long id;
 
     @JsonProperty(value = "first_name")
     private String firstName;

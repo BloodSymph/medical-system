@@ -9,6 +9,7 @@ public class MedPersonalAdminMapper {
 
     public static MedPersonalAdminResponse mapToAdminResponse(MedPersonalEntity medPersonalEntity) {
         return MedPersonalAdminResponse.builder()
+                .id(medPersonalEntity.getId())
                 .firstName(medPersonalEntity.getFirstName())
                 .lastName(medPersonalEntity.getLastName())
                 .username(medPersonalEntity.getUsername())

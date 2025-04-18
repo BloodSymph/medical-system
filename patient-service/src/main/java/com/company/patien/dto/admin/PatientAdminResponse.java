@@ -1,4 +1,4 @@
-package com.med.personal.dto.admin;
+package com.company.patien.dto.admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
@@ -6,37 +6,35 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedPersonalAdminResponse {
+public class PatientAdminResponse {
 
     private Long id;
 
-    @JsonProperty(value = "first_name")
+    @JsonProperty("first_name")
     private String firstName;
 
-    @JsonProperty(value = "last_name")
+    @JsonProperty("last_name")
     private String lastName;
 
     private String username;
 
     private String email;
 
-    @JsonProperty(value = "phone_number")
+    @JsonProperty("phone_number")
     private String phoneNumber;
 
     private String address;
-
-    private String specialty;
-
-    @JsonProperty(value = "specialty_code")
-    private Long specialtyCode;
 
     @DateTimeFormat(pattern = "E, dd MMM yyyy HH:mm:ss z")
     private LocalDateTime created;

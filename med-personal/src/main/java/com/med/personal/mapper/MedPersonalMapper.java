@@ -1,7 +1,7 @@
 package com.med.personal.mapper;
 
-import com.med.personal.dto.user.MedPersonalRequest;
-import com.med.personal.dto.user.MedPersonalResponse;
+import com.med.personal.dto.client.MedPersonalRequest;
+import com.med.personal.dto.client.MedPersonalResponse;
 import com.med.personal.entity.MedPersonalEntity;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +11,7 @@ public class MedPersonalMapper {
     public static MedPersonalResponse mapMedPersonalResponse(
             MedPersonalEntity medPersonalEntity) {
         return MedPersonalResponse.builder()
+                .id(medPersonalEntity.getId())
                 .firstName(medPersonalEntity.getFirstName())
                 .lastName(medPersonalEntity.getLastName())
                 .username(medPersonalEntity.getUsername())
