@@ -16,7 +16,7 @@ public class AnalysisRequest {
 
     @NotEmpty
     @NotBlank(message = "Analysis name field shod not be empty!")
-    @Length(max = 120, message = "Analysis name  shod have maximum of {max} characters!")
+    @Length(max = 120, message = "Analysis name shod have maximum of {max} characters!")
     private String analysisName;
 
     @NotEmpty

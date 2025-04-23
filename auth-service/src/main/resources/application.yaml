@@ -15,6 +15,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+    default-schema: auth-schema
 
 application:
   security:

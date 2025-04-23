@@ -40,7 +40,7 @@ public class UserEntity implements UserDetails{
     @Column(name = "user_username", unique = true, nullable = false, length = 50)
     private String username;
 
-    @Column(name = "user_password", nullable = false, unique = true, length = 50)
+    @Column(name = "user_password", nullable = false, unique = true, length = 500)
     private String password;
 
     @CreationTimestamp
