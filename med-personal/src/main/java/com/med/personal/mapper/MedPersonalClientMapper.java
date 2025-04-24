@@ -1,16 +1,16 @@
 package com.med.personal.mapper;
 
-import com.med.personal.dto.client.MedPersonalRequest;
-import com.med.personal.dto.client.MedPersonalResponse;
+import com.med.personal.dto.client.MedPersonalClientRequest;
+import com.med.personal.dto.client.MedPersonalClientResponse;
 import com.med.personal.entity.MedPersonalEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MedPersonalMapper {
+public class MedPersonalClientMapper {
 
-    public static MedPersonalResponse mapMedPersonalResponse(
+    public static MedPersonalClientResponse mapMedPersonalResponse(
             MedPersonalEntity medPersonalEntity) {
-        return MedPersonalResponse.builder()
+        return MedPersonalClientResponse.builder()
                 .id(medPersonalEntity.getId())
                 .firstName(medPersonalEntity.getFirstName())
                 .lastName(medPersonalEntity.getLastName())
@@ -24,16 +24,16 @@ public class MedPersonalMapper {
     }
 
     public static MedPersonalEntity mapMedPersonalRequestToEntity(
-            MedPersonalRequest medPersonalRequest) {
+            MedPersonalClientRequest medPersonalClientRequest) {
         return MedPersonalEntity.builder()
-                .firstName(medPersonalRequest.getFirstName())
-                .lastName(medPersonalRequest.getLastName())
-                .phoneNumber(medPersonalRequest.getPhoneNumber())
-                .email(medPersonalRequest.getEmail())
-                .address(medPersonalRequest.getAddress())
-                .specialty(medPersonalRequest.getSpecialty())
-                .specialtyCode(medPersonalRequest.getSpecialtyCode())
-                .version(medPersonalRequest.getVersion())
+                .firstName(medPersonalClientRequest.getFirstName())
+                .lastName(medPersonalClientRequest.getLastName())
+                .phoneNumber(medPersonalClientRequest.getPhoneNumber())
+                .email(medPersonalClientRequest.getEmail())
+                .address(medPersonalClientRequest.getAddress())
+                .specialty(medPersonalClientRequest.getSpecialty())
+                .specialtyCode(medPersonalClientRequest.getSpecialtyCode())
+                .version(medPersonalClientRequest.getVersion())
                 .build();
     }
 

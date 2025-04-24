@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PatientDetailsResponse extends PatientResponse {
+public class PatientClientDetailsClientResponse extends PatientClientResponse {
 
     private List<AnalysisResponse> analyses;
 

@@ -2,7 +2,6 @@ package com.company.patien.mapper.admin;
 
 import com.company.patien.dto.admin.PatientAdminDetailsResponse;
 import com.company.patien.dto.admin.PatientAdminResponse;
-import com.company.patien.dto.client.PatientDetailsResponse;
 import com.company.patien.entity.PatientEntity;
 import org.springframework.stereotype.Component;
 

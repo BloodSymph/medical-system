@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface InstrumentalExamination extends JpaRepository<InstrumentalExaminationsEntity, Long> {
+public interface InstrumentalExaminationsRepository extends JpaRepository<InstrumentalExaminationsEntity, Long> {
 }

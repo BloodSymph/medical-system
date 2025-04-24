@@ -1,32 +1,37 @@
-package com.company.patien.dto.client;
+package com.med.personal.dto.client;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PatientResponse {
+public class MedPersonalClientResponse {
 
     private Long id;
 
-    @JsonProperty("first_name")
+    @JsonProperty(value = "first_name")
     private String firstName;
 
-    @JsonProperty("last_name")
+    @JsonProperty(value = "last_name")
     private String lastName;
 
     private String username;
 
-    private String email;
-
-    @JsonProperty("phone_number")
+    @JsonProperty(value = "phone_number")
     private String phoneNumber;
 
+    private String email;
+
     private String address;
+
+    private String specialty;
+
+    @JsonProperty(value = "specialty_code")
+    private Long specialtyCode;
 
 }

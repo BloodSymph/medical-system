@@ -1,7 +1,7 @@
 package com.med.personal.controller;
 
-import com.med.personal.dto.client.MedPersonalRequest;
-import com.med.personal.dto.client.MedPersonalResponse;
+import com.med.personal.dto.client.MedPersonalClientRequest;
+import com.med.personal.dto.client.MedPersonalClientResponse;
 import com.med.personal.service.profile.MedPersonalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,22 +18,22 @@ public class MedPersonalProfile {
 
     @GetMapping("/profile")
     @ResponseStatus(HttpStatus.OK)
-    public MedPersonalResponse getProfile(){
+    public MedPersonalClientResponse getProfile(){
         return medPersonalService.getProfile();
     }
 
     @PostMapping("/profile/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public MedPersonalResponse createProfile(
-            @Valid @RequestBody MedPersonalRequest medPersonalRequest){
-        return medPersonalService.createProfile(medPersonalRequest);
+    public MedPersonalClientResponse createProfile(
+            @Valid @RequestBody MedPersonalClientRequest medPersonalClientRequest){
+        return medPersonalService.createProfile(medPersonalClientRequest);
     }
 
     @PutMapping("/profile/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public MedPersonalResponse updateProfile(
-            @Valid @RequestBody MedPersonalRequest medPersonalRequest){
-        return medPersonalService.updateProfile(medPersonalRequest);
+    public MedPersonalClientResponse updateProfile(
+            @Valid @RequestBody MedPersonalClientRequest medPersonalClientRequest){
+        return medPersonalService.updateProfile(medPersonalClientRequest);
     }
 
     @DeleteMapping("/profile/{username}/delete")

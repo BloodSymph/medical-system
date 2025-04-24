@@ -1,7 +1,7 @@
 package com.med.personal.service.profile.implementation;
 
-import com.med.personal.dto.client.MedPersonalRequest;
-import com.med.personal.dto.client.MedPersonalResponse;
+import com.med.personal.dto.client.MedPersonalClientRequest;
+import com.med.personal.dto.client.MedPersonalClientResponse;
 import com.med.personal.entity.MedPersonalEntity;
 import com.med.personal.excepton.errors.MedPersonalProfileNotFoundException;
 import com.med.personal.excepton.errors.MedPersonalVersionNotValidException;
@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalRequestToEntity;
-import static com.med.personal.mapper.MedPersonalMapper.mapMedPersonalResponse;
+import static com.med.personal.mapper.MedPersonalClientMapper.mapMedPersonalRequestToEntity;
+import static com.med.personal.mapper.MedPersonalClientMapper.mapMedPersonalResponse;
 import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser;
 
 @Service
@@ -23,7 +23,7 @@ public class MedPersonalServiceImpl implements MedPersonalService {
 
 
     @Override
-    public MedPersonalResponse getProfile() {
+    public MedPersonalClientResponse getProfile() {
         MedPersonalEntity medPersonalEntity = medPersonalRepository
                 .findByUsernameIgnoreCase(getSessionUser())
                 .orElseThrow(
@@ -35,8 +35,8 @@ public class MedPersonalServiceImpl implements MedPersonalService {
     }
 
     @Override
-    public MedPersonalResponse createProfile(MedPersonalRequest medPersonalRequest) {
-        MedPersonalEntity medPersonalEntity = mapMedPersonalRequestToEntity(medPersonalRequest);
+    public MedPersonalClientResponse createProfile(MedPersonalClientRequest medPersonalClientRequest) {
+        MedPersonalEntity medPersonalEntity = mapMedPersonalRequestToEntity(medPersonalClientRequest);
         medPersonalEntity.setUsername(getSessionUser());
         medPersonalRepository.save(medPersonalEntity);
         return mapMedPersonalResponse(medPersonalEntity);
@@ -44,7 +44,7 @@ public class MedPersonalServiceImpl implements MedPersonalService {
 
     @Override
     @Transactional
-    public MedPersonalResponse updateProfile(MedPersonalRequest medPersonalRequest) {
+    public MedPersonalClientResponse updateProfile(MedPersonalClientRequest medPersonalClientRequest) {
         MedPersonalEntity medPersonalEntity = medPersonalRepository
                 .findByUsernameIgnoreCase(getSessionUser())
                 .orElseThrow(
@@ -52,20 +52,20 @@ public class MedPersonalServiceImpl implements MedPersonalService {
                                 "Cannot find profile for username: " + getSessionUser() + "!"
                         )
                 );
-        if(!medPersonalEntity.getVersion().equals(medPersonalRequest.getVersion())) {
+        if(!medPersonalEntity.getVersion().equals(medPersonalClientRequest.getVersion())) {
             throw new MedPersonalVersionNotValidException(
                     "Med personal profile entity version not valid!"
             );
         }
         medPersonalEntity.setUsername(getSessionUser());
-        medPersonalEntity.setFirstName(medPersonalRequest.getFirstName());
-        medPersonalEntity.setLastName(medPersonalRequest.getLastName());
-        medPersonalEntity.setPhoneNumber(medPersonalRequest.getPhoneNumber());
-        medPersonalEntity.setAddress(medPersonalRequest.getAddress());
+        medPersonalEntity.setFirstName(medPersonalClientRequest.getFirstName());
+        medPersonalEntity.setLastName(medPersonalClientRequest.getLastName());
+        medPersonalEntity.setPhoneNumber(medPersonalClientRequest.getPhoneNumber());
+        medPersonalEntity.setAddress(medPersonalClientRequest.getAddress());
         medPersonalEntity.setEmail(medPersonalEntity.getEmail());
-        medPersonalEntity.setSpecialty(medPersonalRequest.getSpecialty());
-        medPersonalEntity.setSpecialtyCode(medPersonalRequest.getSpecialtyCode());
-        medPersonalEntity.setVersion((medPersonalRequest.getVersion()));
+        medPersonalEntity.setSpecialty(medPersonalClientRequest.getSpecialty());
+        medPersonalEntity.setSpecialtyCode(medPersonalClientRequest.getSpecialtyCode());
+        medPersonalEntity.setVersion((medPersonalClientRequest.getVersion()));
 
         medPersonalRepository.save(medPersonalEntity);
 

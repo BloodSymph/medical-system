@@ -1,17 +1,17 @@
 package com.med.personal.service.profile;
 
-import com.med.personal.dto.client.MedPersonalRequest;
-import com.med.personal.dto.client.MedPersonalResponse;
+import com.med.personal.dto.client.MedPersonalClientRequest;
+import com.med.personal.dto.client.MedPersonalClientResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface MedPersonalService {
 
-    MedPersonalResponse getProfile();
+    MedPersonalClientResponse getProfile();
 
-    MedPersonalResponse createProfile(MedPersonalRequest medPersonalRequest);
+    MedPersonalClientResponse createProfile(MedPersonalClientRequest medPersonalClientRequest);
 
-    MedPersonalResponse updateProfile(MedPersonalRequest medPersonalRequest);
+    MedPersonalClientResponse updateProfile(MedPersonalClientRequest medPersonalClientRequest);
 
     void deleteProfile(String username, Long version);
 
