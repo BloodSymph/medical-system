@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     );
 
     @EntityGraph(value = "user-roles-named-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
-    @Query("SELECT user FROM User user WHERE user.username LIKE LOWER(:username) ")
+    @Query("SELECT user FROM User user WHERE LOWER(user.username) LIKE LOWER(:username) ")
     Optional<UserEntity> getUserEntitiesByUsername(
             @Param(value = "username") String username
     );
