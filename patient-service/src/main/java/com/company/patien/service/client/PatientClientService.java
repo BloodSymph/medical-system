@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PatientClientService {
 
-    PatientClientResponse getPatientDetails();
+    PatientClientResponse getPatient();
 
     PatientClientDetailsClientResponse getPatientDetailsByUsername();
 

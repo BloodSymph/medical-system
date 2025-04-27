@@ -26,7 +26,7 @@ public class PatientAdminMapper {
     }
 
 
-    public PatientAdminDetailsResponse mapToPatientAdminDetailsResponse(PatientEntity patientEntity) {
+    public static PatientAdminDetailsResponse mapToPatientAdminDetailsResponse(PatientEntity patientEntity) {
         return PatientAdminDetailsResponse.builder()
                 .id(patientEntity.getId())
                 .firstName(patientEntity.getFirstName())

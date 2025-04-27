@@ -22,7 +22,7 @@ public class PatientClientServiceImpl implements PatientClientService {
     private final PatientRepository patientRepository;
 
     @Override
-    public PatientClientResponse getPatientDetails() {
+    public PatientClientResponse getPatient() {
         PatientEntity patientEntity = patientRepository
                 .findByUsernameIgnoreCase(getSessionUser())
                 .orElseThrow(
@@ -81,7 +81,7 @@ public class PatientClientServiceImpl implements PatientClientService {
     @Override
     @Transactional
     public void deletePatient(Long version) {
-       if (!patientRepository.existsByUsername(getSessionUser())) {
+       if (!patientRepository.existsByUsernameIgnoreCase(getSessionUser())) {
            throw new PatientNotFoundException(
                    "Cannot find patient with username: " + getSessionUser() + "!"
            );
