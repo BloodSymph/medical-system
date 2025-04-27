@@ -18,27 +18,12 @@ public interface AnalysisRepository extends JpaRepository<AnalysisEntity, Long> 
     )
     List<AnalysisEntity> findByAllPatientUsername(@Param(value = "username") String username);
 
-    @Query("SELECT analysis FROM Analysis analysis " +
-            "WHERE LOWER(analysis.patient.username) LIKE LOWER(:username) "
-    )
-    Optional<AnalysisEntity> getByUsername(@Param(value = "username") String username);
-
     Boolean existsByVersion(Long version);
 
     @Query("SELECT analysis FROM Analysis analysis " +
             "WHERE LOWER(analysis.patient.username) LIKE LOWER(:username) "
     )
     Boolean existsByPatientUsername(@Param(value = "username") String username);
-
-    @Query("SELECT analysis FROM Analysis analysis " +
-            "WHERE LOWER(analysis.patient.username) LIKE LOWER(:username) "
-    )
-    Optional<AnalysisEntity> getByPatientUsername(@Param(value = "username") String username);
-
-    @Query("SELECT analysis FROM Analysis analysis " +
-            "WHERE LOWER(analysis.patient.username) LIKE LOWER(:username) "
-    )
-    Boolean existsByUsername(@Param(value = "username") String username);
 
     @Modifying
     @Query("DELETE FROM Analysis analysis " +

@@ -4,7 +4,10 @@ import com.company.patien.dto.client.AnalysisRequest;
 import com.company.patien.dto.client.AnalysisResponse;
 import com.company.patien.entity.AnalysisEntity;
 import com.company.patien.entity.PatientEntity;
+import com.company.patien.exeption.errors.AnalysisNotFoundException;
+import com.company.patien.exeption.errors.AnalysisVersionNotValidException;
 import com.company.patien.exeption.errors.PatientNotFoundException;
+import com.company.patien.exeption.errors.PatientVersionNotValidException;
 import com.company.patien.mapper.client.AnalysisClientMapper;
 import com.company.patien.repository.AnalysisRepository;
 import com.company.patien.repository.PatientRepository;
@@ -18,8 +21,7 @@ import java.util.stream.Collectors;
 
 import static com.company.patien.mapper.client.AnalysisClientMapper.mapToAnalysisEntity;
 import static com.company.patien.mapper.client.AnalysisClientMapper.mapToAnalysisResponse;
-import static com.company.patien.mapper.client.PatientClientMapper.mapToPatientDetailsResponse;
-import static com.company.patien.util.GetUserFromCurrentAuthSession.getSessionUser;
+
 
 @Service
 @RequiredArgsConstructor
@@ -38,10 +40,6 @@ public class AnalysisServiceImpl implements AnalysisService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public AnalysisResponse getAnalyseByUsername(String username) {
-        return null;
-    }
 
     @Override
     @Transactional
@@ -63,9 +61,17 @@ public class AnalysisServiceImpl implements AnalysisService {
     @Override
     @Transactional
     public void deleteAnalysis(String username, Long version) {
-        if (!patientRepository.existsByUsername(username)) {
-
+        if (!analysisRepository.existsByPatientUsername(username)) {
+            throw new AnalysisNotFoundException(
+                    "Cannot find analysis with username: " + username + "!"
+            );
         }
+        if (!analysisRepository.existsByVersion(version)) {
+            throw new AnalysisVersionNotValidException(
+                    "Analysis version is not valid!"
+            );
+        }
+        analysisRepository.deleteByUsernameIgnoreCase(username);
     }
 
 }

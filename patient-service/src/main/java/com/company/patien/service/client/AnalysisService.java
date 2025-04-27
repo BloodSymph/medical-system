@@ -11,11 +11,10 @@ public interface AnalysisService {
 
     List<AnalysisResponse> getAnalysis(String username);
 
-    AnalysisResponse getAnalyseByUsername(String username);
-
-    AnalysisResponse createAnalysis(AnalysisRequest analysisRequest, String username);
+    AnalysisResponse createAnalysis(
+            AnalysisRequest analysisRequest, String username
+    );
 
     void deleteAnalysis(String username, Long version);
-
 
 }
