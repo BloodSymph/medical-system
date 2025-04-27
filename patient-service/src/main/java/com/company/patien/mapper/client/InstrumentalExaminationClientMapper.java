@@ -22,6 +22,7 @@ public class InstrumentalExaminationClientMapper {
         return InstrumentalExaminationsEntity.builder()
                 .instrumentalName(instrumentalExaminationsRequest.getInstrumentalName())
                 .description(instrumentalExaminationsRequest.getDescription())
+                .version(instrumentalExaminationsRequest.getVersion())
                 .build();
     }
 

@@ -20,6 +20,7 @@ public class AnalysisClientMapper {
         return AnalysisEntity.builder()
                 .analysisName(analysisRequest.getAnalysisName())
                 .description(analysisRequest.getDescription())
+                .version(analysisRequest.getVersion())
                 .build();
     }
 

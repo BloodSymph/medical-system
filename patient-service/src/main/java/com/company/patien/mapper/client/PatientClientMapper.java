@@ -54,6 +54,7 @@ public class PatientClientMapper {
                 .email(patientClientRequest.getEmail())
                 .phoneNumber(patientClientRequest.getPhoneNumber())
                 .address(patientClientRequest.getAddress())
+                .version(patientClientRequest.getVersion())
                 .build();
     }
 

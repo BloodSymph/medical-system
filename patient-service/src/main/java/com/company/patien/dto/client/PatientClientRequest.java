@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 @Data
@@ -41,6 +42,6 @@ public class PatientClientRequest {
     private String address;
 
     @NotNull(message = "Version field shod not contains null value!")
-    private String version;
+    private Long version;
 
 }

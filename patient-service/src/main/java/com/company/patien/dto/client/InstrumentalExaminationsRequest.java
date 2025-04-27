@@ -2,6 +2,7 @@ package com.company.patien.dto.client;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +24,8 @@ public class InstrumentalExaminationsRequest {
     @NotBlank(message = "Instrumental examination description field shod not be empty!")
     @Length(max = 250, message = "Instrumental examination description shod have maximum of {max} characters!")
     private String description;
+
+    @NotNull(message = "Version field shod not contains null value!")
+    private Long version;
 
 }

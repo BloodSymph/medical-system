@@ -4,6 +4,8 @@ import com.company.patien.dto.client.InstrumentalExaminationsRequest;
 import com.company.patien.dto.client.InstrumentalExaminationsResponse;
 import com.company.patien.entity.InstrumentalExaminationsEntity;
 import com.company.patien.entity.PatientEntity;
+import com.company.patien.exeption.errors.InstrumentalExaminationsNotFoundException;
+import com.company.patien.exeption.errors.InstrumentalExaminationsVersionNotValidException;
 import com.company.patien.exeption.errors.PatientNotFoundException;
 import com.company.patien.mapper.admin.InstrumentalExaminationsMapper;
 import com.company.patien.mapper.client.InstrumentalExaminationClientMapper;
@@ -59,7 +61,17 @@ public class InstrumentalExaminationsServiceImpl implements InstrumentalExaminat
     @Override
     @Transactional
     public void deleteInstrumentalExaminations(String username, Long version) {
-
+        if (!instrumentalExaminationsRepository.existsByPatientUsername(username)) {
+            throw new InstrumentalExaminationsNotFoundException(
+                    "Cannot find instrumental examinations with username: " + username + "!"
+            );
+        }
+        if (!instrumentalExaminationsRepository.existsByVersion(version)) {
+            throw new InstrumentalExaminationsVersionNotValidException(
+                    "Instrumental examinations version is not valid!"
+            );
+        }
+        instrumentalExaminationsRepository.deleteByPatientUsernameIgnoreCase(username);
     }
 
 }
