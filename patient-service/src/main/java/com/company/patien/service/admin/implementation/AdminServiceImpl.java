@@ -4,6 +4,7 @@ import com.company.patien.dto.admin.PatientAdminDetailsResponse;
 import com.company.patien.dto.admin.PatientAdminResponse;
 import com.company.patien.entity.PatientEntity;
 import com.company.patien.exeption.errors.PatientNotFoundException;
+import com.company.patien.exeption.errors.PatientVersionNotValidException;
 import com.company.patien.mapper.admin.PatientAdminMapper;
 import com.company.patien.repository.PatientRepository;
 import com.company.patien.service.admin.AdminService;
@@ -50,7 +51,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public void deletePatient(String username, Long version) {
-
+        if (!patientRepository.existsByUsernameIgnoreCase(username)) {
+            throw new PatientNotFoundException(
+                    "Cannot find patient with username: " + username + "!"
+            );
+        }
+        if (!patientRepository.existsByVersion(version)) {
+            throw new PatientVersionNotValidException(
+                    "Patient version not valid!"
+            );
+        }
+        patientRepository.deleteByUsernameIgnoreCase(username);
     }
 
 }

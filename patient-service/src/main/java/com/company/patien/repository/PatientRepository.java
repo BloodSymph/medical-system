@@ -14,19 +14,19 @@ import java.util.Optional;
 @Repository
 public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
 
-    @Query("SELECT patientFROM Patient patient " +
-            "WHERE LOWER(profile.firstName) LIKE CONCAT('%', :searchText, '%') " +
-            "OR LOWER(profile.lastName) LIKE CONCAT('%', :searchText, '%') " +
-            "OR LOWER(profile.username) LIKE CONCAT('%', :searchText, '%') " +
-            "OR LOWER(profile.email) LIKE CONCAT('%', :searchText, '%') " +
-            "OR LOWER(profile.phoneNumber) LIKE CONCAT('%', :searchText, '%') " +
-            "OR LOWER(profile.address) LIKE CONCAT('%', :searchText, '%') " )
+    @Query("SELECT patient FROM Patient patient " +
+            "WHERE LOWER(patient.firstName) LIKE CONCAT('%', :searchText, '%') " +
+            "OR LOWER(patient.lastName) LIKE CONCAT('%', :searchText, '%') " +
+            "OR LOWER(patient.username) LIKE CONCAT('%', :searchText, '%') " +
+            "OR LOWER(patient.email) LIKE CONCAT('%', :searchText, '%') " +
+            "OR LOWER(patient.phoneNumber) LIKE CONCAT('%', :searchText, '%') " +
+            "OR LOWER(patient.address) LIKE CONCAT('%', :searchText, '%') " )
     Page<PatientEntity> searchPatients(String searchText, Pageable pageable);
 
     Optional<PatientEntity> findByUsernameIgnoreCase(String username);
 
     @EntityGraph(value = "patient-details-entity-graph", type = EntityGraph.EntityGraphType.FETCH)
-    @Query("SELECT patient FROM Patient patient WHERE patient.username LIKE LOWER(:username) ")
+    @Query("SELECT patient FROM Patient patient WHERE LOWER(patient.username) LIKE LOWER(:username) ")
     Optional<PatientEntity> findDetailsUsernameIgnoreCase(
             @Param(value = "username") String username
     );
