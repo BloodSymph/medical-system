@@ -13,6 +13,4 @@ public class PatientController {
 
     private final PatientClientService patientClientService;
 
-
-
 }
