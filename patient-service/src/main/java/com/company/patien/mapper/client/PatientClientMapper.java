@@ -1,6 +1,6 @@
 package com.company.patien.mapper.client;
 
-import com.company.patien.dto.client.PatientClientDetailsClientResponse;
+import com.company.patien.dto.client.PatientClientDetailsResponse;
 import com.company.patien.dto.client.PatientClientRequest;
 import com.company.patien.dto.client.PatientClientResponse;
 import com.company.patien.entity.PatientEntity;
@@ -23,8 +23,8 @@ public class PatientClientMapper {
                 .build();
     }
 
-    public static PatientClientDetailsClientResponse mapToPatientDetailsResponse(PatientEntity patientEntity) {
-        return PatientClientDetailsClientResponse.builder()
+    public static PatientClientDetailsResponse mapToPatientDetailsResponse(PatientEntity patientEntity) {
+        return PatientClientDetailsResponse.builder()
                 .id(patientEntity.getId())
                 .firstName(patientEntity.getFirstName())
                 .lastName(patientEntity.getLastName())

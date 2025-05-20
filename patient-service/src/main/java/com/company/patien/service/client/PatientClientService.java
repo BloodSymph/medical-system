@@ -1,6 +1,6 @@
 package com.company.patien.service.client;
 
-import com.company.patien.dto.client.PatientClientDetailsClientResponse;
+import com.company.patien.dto.client.PatientClientDetailsResponse;
 import com.company.patien.dto.client.PatientClientRequest;
 import com.company.patien.dto.client.PatientClientResponse;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ public interface PatientClientService {
 
     PatientClientResponse getPatient();
 
-    PatientClientDetailsClientResponse getPatientDetailsByUsername();
+    PatientClientDetailsResponse getPatientDetailsByUsername();
 
     PatientClientResponse createNewPatient(PatientClientRequest patientClientRequest);
 

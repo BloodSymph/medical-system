@@ -1,6 +1,6 @@
 package com.company.patien.service.client.implementation;
 
-import com.company.patien.dto.client.PatientClientDetailsClientResponse;
+import com.company.patien.dto.client.PatientClientDetailsResponse;
 import com.company.patien.dto.client.PatientClientRequest;
 import com.company.patien.dto.client.PatientClientResponse;
 import com.company.patien.entity.PatientEntity;
@@ -34,7 +34,7 @@ public class PatientClientServiceImpl implements PatientClientService {
     }
 
     @Override
-    public PatientClientDetailsClientResponse getPatientDetailsByUsername() {
+    public PatientClientDetailsResponse getPatientDetailsByUsername() {
         PatientEntity patientEntity = patientRepository
                 .findDetailsUsernameIgnoreCase(getSessionUser())
                 .orElseThrow(
