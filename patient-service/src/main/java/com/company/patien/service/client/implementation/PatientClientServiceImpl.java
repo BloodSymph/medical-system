@@ -21,6 +21,7 @@ public class PatientClientServiceImpl implements PatientClientService {
 
     private final PatientRepository patientRepository;
 
+    //todo: Think about caching
     @Override
     public PatientClientResponse getPatient() {
         PatientEntity patientEntity = patientRepository

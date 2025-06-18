@@ -30,6 +30,7 @@ public class InstrumentalExaminationsServiceImpl implements InstrumentalExaminat
 
     private final PatientRepository patientRepository;
 
+    //todo: Think about caching
     @Override
     public List<InstrumentalExaminationsResponse> getInstrumentalExaminations(String username) {
         return instrumentalExaminationsRepository

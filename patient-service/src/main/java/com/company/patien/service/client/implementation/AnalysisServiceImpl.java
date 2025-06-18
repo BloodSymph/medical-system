@@ -31,6 +31,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 
     private final PatientRepository patientRepository;
 
+    //todo: Think about caching
     @Override
     public List<AnalysisResponse> getAnalysis(String username) {
         return analysisRepository

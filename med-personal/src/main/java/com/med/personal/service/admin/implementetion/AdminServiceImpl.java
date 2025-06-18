@@ -40,6 +40,7 @@ public class AdminServiceImpl implements AdminService {
                 .map(MedPersonalAdminMapper::mapToAdminResponse);
     }
 
+    //todo: Think about caching
     @Override
     @Cacheable(value = "med_personal_profile", key = "#username", unless = "#result == null ")
     public MedPersonalAdminResponse getMedPersonalProfile(String username) {

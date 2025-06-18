@@ -45,9 +45,13 @@ public class SecurityConfiguration {
                 )
                 .authorizeHttpRequests(
                         requestMatcherRegistry -> requestMatcherRegistry
-                                .requestMatchers("/api/v1/profile-service/client/**")
+                                .requestMatchers("/api/v1/patient-service/client/**")
+                                .hasAuthority("PATIENT")
+                                .requestMatchers("/api/v1/patient-service/analysis/**")
                                 .hasAnyAuthority("DOCTOR", "NURSE")
-                                .requestMatchers("/api/v1/profile-service/admin/**")
+                                .requestMatchers("/api/v1/patient-service/instrumental/**")
+                                .hasAnyAuthority("DOCTOR", "NURSE")
+                                .requestMatchers("/api/v1/patient-service/admin/**")
                                 .hasAuthority("ADMIN")
                 )
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer

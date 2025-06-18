@@ -124,6 +124,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     }
 
+    //todo: Think about password changing
     @Override
     @Transactional
     public void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal) {

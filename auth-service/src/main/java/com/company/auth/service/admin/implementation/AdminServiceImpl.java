@@ -51,6 +51,8 @@ public class AdminServiceImpl implements AdminService {
                 .map(UserAdminMapper::mapToUserAdminResponse);
     }
 
+    //todo: Think about caching
+
     @Override
     @Cacheable(value = "user_details", key = "#username", unless = "#result == null ")
     public UserDetailsAdminResponse getUser(String username) {
