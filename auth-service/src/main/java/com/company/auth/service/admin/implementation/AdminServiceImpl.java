@@ -18,6 +18,7 @@ import com.company.auth.repository.UserRepository;
 import com.company.auth.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,8 +51,6 @@ public class AdminServiceImpl implements AdminService {
                 .searchByText(search, pageable)
                 .map(UserAdminMapper::mapToUserAdminResponse);
     }
-
-    //todo: Think about caching
 
     @Override
     @Cacheable(value = "user_details", key = "#username", unless = "#result == null ")

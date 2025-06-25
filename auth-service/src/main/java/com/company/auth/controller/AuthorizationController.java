@@ -40,8 +40,8 @@ public class AuthorizationController {
     @PatchMapping("/change-password")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<String> changePassword(
-            @RequestBody ChangePasswordRequest changePasswordRequest, Principal principal) {
-        authorizationService.changePassword(changePasswordRequest, principal);
+           @Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
+        authorizationService.changePassword(changePasswordRequest);
         return new ResponseEntity<>(
                 "Password successful changed!",
                 HttpStatus.ACCEPTED

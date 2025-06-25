@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import static com.company.auth.util.GetUserFromCurrentAuthSession.getSessionUser;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorizationServiceImpl implements AuthorizationService {
@@ -124,12 +126,17 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     }
 
-    //todo: Think about password changing
     @Override
     @Transactional
-    public void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal) {
+    public void changePassword(ChangePasswordRequest changePasswordRequest) {
 
-        UserEntity user = (UserEntity) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        UserEntity user = userRepository
+                .findByUsernameIgnoreCase(getSessionUser())
+                .orElseThrow(
+                        () -> new UsernameNotFoundException(
+                            "Can not find user by username: " + getSessionUser() + "!"
+                        )
+                );
 
         if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             throw new WrongPasswordException("Wrong password!");

@@ -24,6 +24,6 @@ public interface AuthorizationService {
             HttpServletResponse response
     ) throws IOException;
 
-    void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal);
+    void changePassword(ChangePasswordRequest changePasswordRequest);
 
 }
