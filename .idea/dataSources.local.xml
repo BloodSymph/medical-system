@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-243.26053.27">
-    <data-source name="postgres@localhost" uuid="7b690915-65b9-42d2-bb44-698a41e0aa30">
+    <data-source name="postgres@localhost" uuid="a4dddfe0-21c2-42e1-b623-bd3217734e45">
       <database-info product="PostgreSQL" version="16.1" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.1" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -10,20 +10,33 @@
       <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database">
-            <name qname="auth" />
-            <name qname="med-personal" />
-            <node kind="schema" negative="1" />
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="auth">
+              <node kind="schema" qname="auth" negative="1" />
+            </node>
+            <node kind="database">
+              <name qname="med-personal" />
+              <name qname="patient" />
+              <node kind="schema" negative="1" />
+            </node>
           </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="patient@localhost" uuid="c4737ad9-fb54-43ad-bbc6-99f8feb949f1">
+    <data-source name="med-personal@localhost" uuid="84eee052-0213-4108-bbef-33fe123e2b01">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" />
       <user-name>postgres</user-name>
       <schema-mapping />
     </data-source>
-    <data-source name="auth@localhost" uuid="aeaa8a01-b433-4096-addc-c8dfde25f310">
+    <data-source name="patient@localhost" uuid="75468042-d31e-4d38-983d-cf1d3d1b3ee4">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" />
+      <user-name>postgres</user-name>
+      <schema-mapping />
+    </data-source>
+    <data-source name="auth@localhost" uuid="4fe14620-06a7-4d47-ab82-c00b03dcdac9">
       <database-info product="PostgreSQL" version="16.1" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="16.1" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -37,9 +50,8 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="med-personal@localhost" uuid="abbb412a-ac8b-4be9-a853-03acd569e58c">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" />
-      <user-name>postgres</user-name>
+    <data-source name="0@localhost" uuid="773a9bb0-56d5-470f-bf63-00cfadbe5f6a">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="REDIS" />
       <schema-mapping />
     </data-source>
   </component>

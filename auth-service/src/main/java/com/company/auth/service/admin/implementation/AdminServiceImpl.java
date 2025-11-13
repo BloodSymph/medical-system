@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.company.auth.mapper.RoleAdminMapper.mapToRoleAdminResponse;
 import static com.company.auth.mapper.RoleAdminMapper.mapToRoleEntity;
 import static com.company.auth.mapper.UserAdminMapper.mapToUserDetailsAdminResponse;
-import static com.company.auth.util.CacheEvictUtil.evictAllCaches;
+
 
 @Service
 @RequiredArgsConstructor
@@ -122,6 +122,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "user_details", key = "#username", allEntries = true)
     public void deleteUserByUsername(String username, Long version) {
         if(!userRepository.existsByUsernameIgnoreCase(username)) {
             throw new UserNotFoundException(
@@ -194,8 +195,4 @@ public class AdminServiceImpl implements AdminService {
         roleRepository.deleteByNameIgnoreCase(name);
     }
 
-    @Override
-    public void cacheEvict() {
-        evictAllCaches();
-    }
 }

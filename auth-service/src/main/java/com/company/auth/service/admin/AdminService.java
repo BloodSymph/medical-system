@@ -37,8 +37,4 @@ public interface AdminService {
 
     void deleteRoleByName(String name, Long version);
 
-    @Scheduled(fixedDelay = 5000)
-    void  cacheEvict();
-
-
 }

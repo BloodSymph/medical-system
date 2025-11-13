@@ -13,7 +13,8 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
     //todo: Query param
-    Optional<RoleEntity> findByNameIgnoreCase(String roleName);
+    @Query("SELECT role FROM Role role WHERE LOWER(role.name) LIKE LOWER(:roleName) ")
+    Optional<RoleEntity> findByNameIgnoreCase(@Param(value = "roleName") String roleName);
 
     @Query("SELECT role FROM Role role WHERE LOWER(role.name) LIKE CONCAT('%', :searchText, '%') ")
     Page<RoleEntity> searchByText(
