@@ -18,6 +18,7 @@ import com.company.auth.service.authorization.AuthorizationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import static com.company.auth.util.GetUserFromCurrentAuthSession.getSessionUser;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthorizationServiceImpl implements AuthorizationService {
@@ -63,9 +65,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         UserEntity user = new UserEntity();
 
         user.setUsername(registerRequest.getUsername());
+
         user.setPassword(passwordEncoder.encode(
                 registerRequest.getPassword())
         );
+
         user.setVersion(registerRequest.getVersion());
 
         RoleEntity roleEntity = roleRepository
