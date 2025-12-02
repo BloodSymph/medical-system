@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JWTAuthFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService customUserDetailsService;
@@ -30,23 +32,24 @@ public class JWTAuthFilter extends OncePerRequestFilter {
            @NonNull HttpServletRequest request,
            @NonNull HttpServletResponse response,
            @NonNull FilterChain filterChain) throws ServletException, IOException {
-
+        log.info("Get authentication header");
         String authHeader = request.getHeader("Authorization");
-
+        log.info("Authorization header: {}", authHeader);
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-
+        log.info("Authentication token: {}", authHeader);
         String token = authHeader.substring(7);
-
+        log.info("Found token: {}", token);
         String username = jwtService.extractUsername(token);
-
+        log.info("Found username: {}", username);
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-
+            log.info("Found user: {}", userDetails);
             if(jwtService.isValid(token, userDetails)) {
+                log.info("JWT valid");
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
