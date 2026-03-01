@@ -55,23 +55,23 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     @Transactional
     public AuthenticationResponse registerNewUser(RegisterRequest registerRequest) {
-
+        log.info("Checking if user exists: {}!", registerRequest.getUsername());
         if(userRepository.existsByUsernameIgnoreCase(registerRequest.getUsername())) {
             throw new UsernameIsTakenException(
                     "Username: " + registerRequest.getUsername() + " is taken!"
             );
         }
-
+        log.info("Creating new user!");
         UserEntity user = new UserEntity();
-
+        log.info("Set user name: {} ", registerRequest.getUsername());
         user.setUsername(registerRequest.getUsername());
-
+        log.info("Set password: {} ",  registerRequest.getPassword());
         user.setPassword(passwordEncoder.encode(
                 registerRequest.getPassword())
         );
-
+        log.info("Set user version: {} ", registerRequest.getVersion());
         user.setVersion(registerRequest.getVersion());
-
+        log.info("Find role by name: {}", registerRequest.getRoleName());
         RoleEntity roleEntity = roleRepository
                 .findByNameIgnoreCase(registerRequest.getRoleName())
                 .orElseThrow(
@@ -79,14 +79,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                                 "Role: " + registerRequest.getRoleName() + " not founded!"
                         )
                 );
-
+        log.info("Set role: {}", roleEntity);
         user.setRoles(List.of(roleEntity));
-
+        log.info("Save user: {}", user);
         user = userRepository.save(user);
-
+        log.info("Generated access token!");
         String accessToken = jwtService.generateAccessToken(user);
+        log.info("Generated refresh token!");
         String refreshToken = jwtService.generateRefreshToken(user);
-
+        log.info("Save user tokens!");
         saveUserToken(accessToken, refreshToken, user);
 
         return new AuthenticationResponse(
@@ -100,14 +101,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     @Transactional
     public AuthenticationResponse login(LoginRequest loginRequest) {
-
+        log.info("Authenticate with authentication manager!");
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
                         loginRequest.getPassword()
                 )
         );
-
+        log.info("Find user by username: {}", loginRequest.getUsername());
         UserEntity user = userRepository
                 .findByUsernameIgnoreCase(loginRequest.getUsername())
                 .orElseThrow(
@@ -115,11 +116,13 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                                 "Can not find user by username: " + loginRequest.getUsername() + "!"
                         )
                 );
-
+        log.info("Generated access token!");
         String accessToken = jwtService.generateAccessToken(user);
+        log.info("Generated refresh token!");
         String refreshToken = jwtService.generateRefreshToken(user);
-
+        log.info("Revoke all tokens by user: {}!", user);
         revokeAllTokenByUser(user);
+        log.info("Save user tokens!");
         saveUserToken(accessToken, refreshToken, user);
 
         return new AuthenticationResponse(
@@ -161,17 +164,17 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public ResponseEntity<?> refresh(
             HttpServletRequest httpServletRequest,
             HttpServletResponse httpServletResponse) throws IOException {
-
+        log.info("Get auth header!");
         String authHeader = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
-
+        log.info("Checking if auth header is bearer: {}", authHeader);
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
+        log.info("Get string token!");
         String token = authHeader.substring(7);
-
+        log.info("Get username from token!");
         String username = jwtService.extractUsername(token);
-
+        log.info("Extract username: {}", username);
         UserEntity user = userRepository
                 .findByUsernameIgnoreCase(username)
                 .orElseThrow(
@@ -179,14 +182,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                                 "Can not find user by username: " + username + "!"
                         )
                 );
-
+        log.info("Find user by username: {}", username);
         if(jwtService.isValidRefreshToken(token, user)) {
-
+            log.info("Generated access token!");
             String accessToken = jwtService.generateAccessToken(user);
+            log.info("Generated refresh token!");
             String refreshToken = jwtService.generateRefreshToken(user);
-
+            log.info("Revoke all tokens by user: {}!", user);
             revokeAllTokenByUser(user);
-
+            log.info("Save user tokens!");
             saveUserToken(accessToken, refreshToken, user);
 
             return new ResponseEntity<>(
