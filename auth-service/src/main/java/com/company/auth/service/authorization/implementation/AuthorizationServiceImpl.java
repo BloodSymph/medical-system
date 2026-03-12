@@ -136,7 +136,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     @Transactional
     public void changePassword(ChangePasswordRequest changePasswordRequest) {
-
+        log.info("Find user by username from authentication session!");
         UserEntity user = userRepository
                 .findByUsernameIgnoreCase(getSessionUser())
                 .orElseThrow(
@@ -144,15 +144,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                             "Can not find user by username: " + getSessionUser() + "!"
                         )
                 );
-
+        log.info("Matching password!");
         if (!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             throw new WrongPasswordException("Wrong password!");
         }
-
+        log.info("Confirm password!");
         if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())) {
             throw new WrongPasswordException("Password is not the same!");
         }
-
+        log.info("Set new password!");
         user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
 
        userRepository.save(user);
@@ -207,10 +207,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     }
 
     private void revokeAllTokenByUser(UserEntity user) {
-
+        log.info("Find all access tokens by userId: {}", user.getUsername());
         List<TokenEntity> validTokens = tokenRepository
                 .findAllAccessTokenByUserId(user.getId());
-
+        log.info("If validTokens is empty!");
         if(validTokens.isEmpty()) {
             return;
         }
@@ -218,10 +218,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         validTokens.forEach(t-> {
             t.setLoggedOut(true);
         });
-
+        log.info("Save all validTokens: {}!", validTokens);
         tokenRepository.saveAll(validTokens);
 
     }
+
     private void saveUserToken(
             String accessToken,
             String refreshToken,
