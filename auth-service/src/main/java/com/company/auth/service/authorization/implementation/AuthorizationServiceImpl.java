@@ -182,7 +182,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                                 "Can not find user by username: " + username + "!"
                         )
                 );
-        log.info("Find user by username: {}", username);
         if(jwtService.isValidRefreshToken(token, user)) {
             log.info("Generated access token!");
             String accessToken = jwtService.generateAccessToken(user);
@@ -227,14 +226,17 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             String accessToken,
             String refreshToken,
             UserEntity user) {
-
+        log.info("Create new user token!");
         TokenEntity token = new TokenEntity();
-
+        log.info("Set new accessToken token: {}", accessToken);
         token.setAccessToken(accessToken);
+        log.info("Set new refreshToken token: {}", refreshToken);
         token.setRefreshToken(refreshToken);
+        log.info("Set loggedOut!");
         token.setLoggedOut(false);
+        log.info("Set user tokens!");
         token.setUser(user);
-
+        log.info("Save user tokens!");
         tokenRepository.save(token);
 
     }
