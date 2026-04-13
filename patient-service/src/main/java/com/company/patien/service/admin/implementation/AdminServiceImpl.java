@@ -9,6 +9,8 @@ import com.company.patien.mapper.admin.PatientAdminMapper;
 import com.company.patien.repository.PatientRepository;
 import com.company.patien.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PatientAdminDetailsResponse getPatientsDetails(String username) {
+    @Cacheable(value = "patient_details", key = "#username", unless = "#result == null ")
+        public PatientAdminDetailsResponse getPatientsDetails(String username) {
         PatientEntity patientEntity = patientRepository
                 .findDetailsUsernameIgnoreCase(username)
                 .orElseThrow(
@@ -50,6 +53,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "patient_details", key = "#username", allEntries = true)
     public void deletePatient(String username, Long version) {
         if (!patientRepository.existsByUsernameIgnoreCase(username)) {
             throw new PatientNotFoundException(

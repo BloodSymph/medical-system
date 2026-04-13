@@ -21,7 +21,6 @@ public class MedPersonalServiceImpl implements MedPersonalService {
 
     private final MedPersonalRepository medPersonalRepository;
 
-    //todo: Think about caching
     @Override
     public MedPersonalClientResponse getProfile() {
         MedPersonalEntity medPersonalEntity = medPersonalRepository

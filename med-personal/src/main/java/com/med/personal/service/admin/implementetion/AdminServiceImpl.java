@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.med.personal.mapper.MedPersonalAdminMapper.mapToAdminResponse;
-import static com.med.personal.util.CacheEvictUtil.evictAllCaches;
 import static com.med.personal.util.GetUserFromCurrentAuthSession.getSessionUser;
 
 @Service
@@ -40,7 +39,6 @@ public class AdminServiceImpl implements AdminService {
                 .map(MedPersonalAdminMapper::mapToAdminResponse);
     }
 
-    //todo: Think about caching
     @Override
     @Cacheable(value = "med_personal_profile", key = "#username", unless = "#result == null ")
     public MedPersonalAdminResponse getMedPersonalProfile(String username) {
@@ -56,6 +54,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "med_personal_profile", key = "#username", allEntries = true)
     public void deleteMedPersonalProfile(String username, Long version) {
         if (!medPersonalRepository.existsByUsernameIgnoreCase(username)) {
             throw new MedPersonalProfileNotFoundException(
@@ -69,8 +68,4 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    @Override
-    public void evictAllCache() {
-        evictAllCaches();
-    }
 }

@@ -13,6 +13,8 @@ import com.company.patien.repository.AnalysisRepository;
 import com.company.patien.repository.PatientRepository;
 import com.company.patien.service.client.AnalysisService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,8 +33,8 @@ public class AnalysisServiceImpl implements AnalysisService {
 
     private final PatientRepository patientRepository;
 
-    //todo: Think about caching
     @Override
+    @Cacheable(value = "analysis", key = "#username", unless = "#result == null ")
     public List<AnalysisResponse> getAnalysis(String username) {
         return analysisRepository
                 .findByAllPatientUsername(username)
@@ -61,6 +63,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "analysis", key = "#username", allEntries = true)
     public void deleteAnalysis(String username, Long version) {
         if (!analysisRepository.existsByPatientUsername(username)) {
             throw new AnalysisNotFoundException(

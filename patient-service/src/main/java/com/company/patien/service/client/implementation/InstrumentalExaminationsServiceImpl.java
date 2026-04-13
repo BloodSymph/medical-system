@@ -13,6 +13,8 @@ import com.company.patien.repository.InstrumentalExaminationsRepository;
 import com.company.patien.repository.PatientRepository;
 import com.company.patien.service.client.InstrumentalExaminationsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +32,9 @@ public class InstrumentalExaminationsServiceImpl implements InstrumentalExaminat
 
     private final PatientRepository patientRepository;
 
-    //todo: Think about caching
+
     @Override
+    @Cacheable(value = "instrumental", key = "#username", unless = "#result == null ")
     public List<InstrumentalExaminationsResponse> getInstrumentalExaminations(String username) {
         return instrumentalExaminationsRepository
                 .findByPatientUsernameIgnoreCase(username)
@@ -61,6 +64,7 @@ public class InstrumentalExaminationsServiceImpl implements InstrumentalExaminat
 
     @Override
     @Transactional
+    @CacheEvict(value = "instrumental", key = "#username", allEntries = true)
     public void deleteInstrumentalExaminations(String username, Long version) {
         if (!instrumentalExaminationsRepository.existsByPatientUsername(username)) {
             throw new InstrumentalExaminationsNotFoundException(

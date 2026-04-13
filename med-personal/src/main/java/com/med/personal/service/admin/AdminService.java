@@ -17,7 +17,4 @@ public interface AdminService {
 
     void deleteMedPersonalProfile(String username, Long version);
 
-    @Scheduled(fixedDelay= 5000)
-    void evictAllCache();
-
 }
