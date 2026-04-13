@@ -57,7 +57,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    @Cacheable(value = "Users", key = "#result" ,unless ="#result == null ")
+    @Cacheable(value = "user_details", key = "#username" ,unless = "#result == null ")
     public UserDetailsAdminResponse getUser(String username) {
         log.info("Getting user {}", username);
         UserEntity user = userRepository.getUserEntitiesByUsername(username)
@@ -72,7 +72,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public void giveUserPermission(PermissionRequest permissionRequest) {
-        log.info("Giving user permission {}", permissionRequest);
+        log.info("Get user by username {}", permissionRequest.getUsername());
         UserEntity user = userRepository
                 .getUserEntitiesByUsername(permissionRequest.getUsername())
                 .orElseThrow(
@@ -80,7 +80,7 @@ public class AdminServiceImpl implements AdminService {
                                 "Can not find user by username: " + permissionRequest.getUsername() + "!"
                         )
                 );
-        log.info("Got user permission {}", permissionRequest);
+        log.info("Get role by name {}", permissionRequest.getName());
         RoleEntity role = roleRepository
                 .findByNameIgnoreCase(permissionRequest.getName())
                 .orElseThrow(
@@ -88,16 +88,16 @@ public class AdminServiceImpl implements AdminService {
                                 "Can not find role by name: " + permissionRequest.getName() + "!"
                         )
                 );
-        log.info("Got role {}", role);
+        log.info("Set user role {}", role);
         user.getRoles().add(role);
-        log.info("Saving user permission {}", permissionRequest);
+        log.info("Saving user permission {}", user);
         userRepository.save(user);
     }
 
     @Override
     @Transactional
     public void removeUserPermission(PermissionRequest permissionRequest) {
-        log.info("Removing user permission {}", permissionRequest);
+        log.info("Get user by username {}", permissionRequest.getUsername());
         UserEntity user = userRepository
                 .getUserEntitiesByUsername(permissionRequest.getUsername())
                 .orElseThrow(
@@ -105,7 +105,7 @@ public class AdminServiceImpl implements AdminService {
                                 "Can not find user by username: " + permissionRequest.getUsername() + "!"
                         )
                 );
-        log.info("Removing user permission {}", permissionRequest);
+        log.info("Get role by name {}", permissionRequest.getName());
         RoleEntity role = roleRepository
                 .findByNameIgnoreCase(permissionRequest.getName())
                 .orElseThrow(
@@ -115,14 +115,14 @@ public class AdminServiceImpl implements AdminService {
                 );
         log.info("Removing role {}", role);
         user.getRoles().remove(role);
-        log.info("Saving user permission {}", permissionRequest);
+        log.info("Saving user permission {}", user);
         userRepository.save(user);
     }
 
     @Override
     @Transactional
     public void clearUserPermissions(String username) {
-        log.info("Clearing user permissions {}", username);
+        log.info("Get user by username {}", username);
         UserEntity user = userRepository
                 .getUserEntitiesByUsername(username)
                 .orElseThrow(
@@ -140,11 +140,13 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     @CacheEvict(value = "user_details", key = "#username", allEntries = true)
     public void deleteUserByUsername(String username, Long version) {
+        log.info("Existing user by username {}", username);
         if(!userRepository.existsByUsernameIgnoreCase(username)) {
             throw new UserNotFoundException(
                     "Can not find user by username: " + username + "!"
             );
         }
+        log.info("Existing user by version {}", version);
         if (!userRepository.existsByVersion(version)) {
             throw new UserVersionNotValidException(
                     "User version is not valid!"
@@ -172,7 +174,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public RoleAdminResponse createRole(RoleAdminRequest roleAdminRequest) {
-        log.info("Creating role {}", roleAdminRequest);
         RoleEntity roleEntity = mapToRoleEntity(roleAdminRequest);
         log.info("Saving role {}", roleEntity);
         roleRepository.save(roleEntity);
@@ -182,7 +183,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public RoleAdminResponse updateRole(RoleAdminRequest roleAdminRequest) {
-        log.info("Updating role {}", roleAdminRequest);
+        log.info("Get role by name {}", roleAdminRequest.getName());
         RoleEntity role = roleRepository
                 .findByNameIgnoreCase(roleAdminRequest.getName())
                 .orElseThrow(
@@ -190,16 +191,17 @@ public class AdminServiceImpl implements AdminService {
                                 "Can not find role by name: " + roleAdminRequest.getName() + "!"
                         )
                 );
+        log.info("Existing role by version {}", roleAdminRequest.getVersion());
         if(!role.getVersion().equals(roleAdminRequest.getVersion())) {
             throw new RoleVersionNotValidException(
                     "Role version is not valid!"
             );
         }
-        log.info("Updating role {}", role);
+        log.info("Set role name {}", roleAdminRequest.getName());
         role.setName(roleAdminRequest.getName());
-        log.info("Saving role {}", role);
+        log.info("Set role version {}", roleAdminRequest.getVersion());
         role.setVersion(roleAdminRequest.getVersion());
-        log.info("Updating role {}", role);
+        log.info("Save role {}", role);
         roleRepository.save(role);
         return mapToRoleAdminResponse(role);
     }
@@ -207,11 +209,13 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional
     public void deleteRoleByName(String name, Long version) {
+        log.info("Existing role by name {}", name);
         if(!roleRepository.existsByNameIgnoreCase(name)) {
             throw new RoleNotFoundException(
                     "Can not find role by name: " + name + "!"
             );
         }
+        log.info("Existing role by version {}", version);
         if (!roleRepository.existsByVersion(version)){
             throw new RoleVersionNotValidException(
                     "Role version is not valid!"
